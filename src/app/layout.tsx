@@ -1,7 +1,7 @@
-import type React from 'react'
+import './globals.css'
 
 import { Inter } from 'next/font/google'
-import './globals.css'
+import type React from 'react'
 
 import { Navbar } from '@/components/navbar'
 import { Providers } from '@/components/providers'

@@ -1,10 +1,11 @@
-import { getUser } from '@/lib/api'
-import { notFound } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import { ArrowLeft, Building, Globe, MapPin, Phone } from 'lucide-react'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { getUser } from '@/lib/api'
 
 export default async function UserDetailPage({
   params,
@@ -88,7 +89,7 @@ export default async function UserDetailPage({
                   <div>
                     <p className="font-medium">{user.company.name}</p>
                     <p className="text-sm text-muted-foreground">
-                      "{user.company.catchPhrase}"
+                      {`"{user.company.catchPhrase}"`}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {user.company.bs}
@@ -111,7 +112,7 @@ export default async function UserDetailPage({
         </div>
       </div>
     )
-  } catch (error) {
+  } catch {
     notFound()
   }
 }

@@ -1,11 +1,13 @@
-import { getPost, getPostComments } from "@/lib/api"
-import { notFound } from "next/navigation"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import { CommentsList } from "./comments-list"
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { getPost, getPostComments } from '@/lib/api'
+
+import { CommentsList } from './comments-list'
 
 export default async function PostDetailPage({
   params,
@@ -13,7 +15,10 @@ export default async function PostDetailPage({
   params: { id: string }
 }) {
   try {
-    const [post, comments] = await Promise.all([getPost(params.id), getPostComments(params.id)])
+    const [post, comments] = await Promise.all([
+      getPost(params.id),
+      getPostComments(params.id),
+    ])
 
     return (
       <div className="space-y-6">
@@ -46,13 +51,12 @@ export default async function PostDetailPage({
         <Separator className="my-4" />
 
         <div>
-          <h2 className="text-xl font-bold mb-4">Comentarios</h2>
+          <h2 className="mb-4 text-xl font-bold">Comentarios</h2>
           <CommentsList initialComments={comments} postId={post.id} />
         </div>
       </div>
     )
-  } catch (error) {
+  } catch {
     notFound()
   }
 }
-

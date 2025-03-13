@@ -1,14 +1,12 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import type { Comment } from '@/lib/api.model'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Form,
   FormControl,
@@ -17,6 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import type { Comment } from '@/lib/types'
 
 const commentSchema = z.object({
   name: z.string().min(1, { message: 'El nombre es requerido' }),
@@ -56,7 +57,7 @@ export function CommentsList({ initialComments, postId }: CommentsListProps) {
     }
 
     // Add the comment to the list (in a real app, we would update the cache)
-    setComments(prev => [newComment, ...prev])
+    setComments(previous => [newComment, ...previous])
     form.reset()
   }
 

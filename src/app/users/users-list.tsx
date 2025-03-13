@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Input } from '@/components/ui/input'
-import type { User } from '@/lib/api.model'
+import { Search } from 'lucide-react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+
 import {
   Card,
   CardContent,
@@ -10,8 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Link from 'next/link'
-import { Search } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import type { User } from '@/lib/api.model'
 
 interface UsersListProps {
   initialUsers: User[]
@@ -40,7 +41,7 @@ export function UsersList({ initialUsers }: UsersListProps) {
           type="text"
           placeholder="Buscar por nombre o usuario..."
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={event => setSearchTerm(event.target.value)}
           className="pl-8"
         />
       </div>

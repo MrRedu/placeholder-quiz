@@ -1,4 +1,5 @@
 import { getUsers } from '@/lib/api'
+
 import { UsersList } from './users-list'
 
 export default async function UsersPage() {
