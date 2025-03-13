@@ -1,4 +1,5 @@
 import { ArrowLeft, Building, Globe, MapPin, Phone } from 'lucide-react'
+import { type Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -6,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { getUser } from '@/lib/api'
-import { type Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Detalles del usuario',

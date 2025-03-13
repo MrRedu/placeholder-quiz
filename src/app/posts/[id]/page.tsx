@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react'
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -8,7 +9,6 @@ import { Separator } from '@/components/ui/separator'
 import { getPost, getPostComments } from '@/lib/api'
 
 import { CommentsList } from './comments-list'
-import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Detalles de la publicación',

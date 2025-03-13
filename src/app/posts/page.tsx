@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { Card } from '@/components/ui/card'
@@ -5,7 +6,6 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { getPosts } from '@/lib/api'
 
 import { PostsList } from './posts-list'
-import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Publicaciones',
