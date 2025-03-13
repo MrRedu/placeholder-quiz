@@ -1,6 +1,11 @@
 import { getUsers } from '@/lib/api'
 
 import { UsersList } from './users-list'
+import { type Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Usuarios',
+}
 
 export default async function UsersPage() {
   // Server Component fetching data

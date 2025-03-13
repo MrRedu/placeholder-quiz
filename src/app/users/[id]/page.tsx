@@ -6,12 +6,17 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { getUser } from '@/lib/api'
+import { type Metadata } from 'next'
 
-export default async function UserDetailPage({
-  params,
-}: {
+export const metadata: Metadata = {
+  title: 'Detalles del usuario',
+}
+
+interface UserDetailPageProps {
   params: Promise<{ id: string }>
-}) {
+}
+
+export default async function UserDetailPage({ params }: UserDetailPageProps) {
   const { id } = await params
 
   try {

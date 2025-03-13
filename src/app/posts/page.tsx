@@ -5,16 +5,17 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { getPosts } from '@/lib/api'
 
 import { PostsList } from './posts-list'
+import { Metadata } from 'next'
 
-interface PostsPageProps {
-  searchParams: { page?: string }
+export const metadata: Metadata = {
+  title: 'Publicaciones',
 }
 
-export default async function PostsPage({
-  params,
-}: {
+interface PostsPageProps {
   params: Promise<{ page: string }>
-}) {
+}
+
+export default async function PostsPage({ params }: PostsPageProps) {
   const { page } = await params
 
   const currentPage = page ? Number.parseInt(page) : 1

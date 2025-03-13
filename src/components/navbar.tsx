@@ -15,12 +15,12 @@ export function Navbar() {
     {
       name: 'Usuarios',
       href: '/users',
-      icon: <Users className="mr-2 h-4 w-4" />,
+      icon: <Users className="h-4 w-4" />,
     },
     {
       name: 'Publicaciones',
       href: '/posts',
-      icon: <FileText className="mr-2 h-4 w-4" />,
+      icon: <FileText className="h-4 w-4" />,
     },
   ]
 
@@ -29,7 +29,9 @@ export function Navbar() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl font-bold">
-            JSONPlaceholder Explorer
+            <span>JSON</span>
+            <span className="hidden md:inline">Placeholder</span>{' '}
+            <span className="hidden lg:inline">Explorer</span>
           </Link>
           <div className="flex items-center gap-4">
             <nav className="flex gap-2">
@@ -41,11 +43,9 @@ export function Navbar() {
                   }
                   asChild
                 >
-                  <Link href={item.href}>
-                    <span className="flex items-center">
-                      {item.icon}
-                      {item.name}
-                    </span>
+                  <Link href={item.href} className="flex items-center">
+                    <span>{item.icon}</span>
+                    <span className="hidden md:inline">{item.name}</span>
                   </Link>
                 </Button>
               ))}

@@ -8,12 +8,17 @@ import { Separator } from '@/components/ui/separator'
 import { getPost, getPostComments } from '@/lib/api'
 
 import { CommentsList } from './comments-list'
+import { Metadata } from 'next'
 
-export default async function PostDetailPage({
-  params,
-}: {
+export const metadata: Metadata = {
+  title: 'Detalles de la publicación',
+}
+
+interface PostsDetailPageProps {
   params: Promise<{ id: string }>
-}) {
+}
+
+export default async function PostDetailPage({ params }: PostsDetailPageProps) {
   const { id } = await params
 
   try {
