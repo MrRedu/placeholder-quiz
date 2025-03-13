@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import type { Comment } from '@/lib/types'
+import type { Comment } from '@/lib/api.model'
 
 const commentSchema = z.object({
   name: z.string().min(1, { message: 'El nombre es requerido' }),

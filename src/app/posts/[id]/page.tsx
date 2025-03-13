@@ -12,12 +12,14 @@ import { CommentsList } from './comments-list'
 export default async function PostDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
+
   try {
     const [post, comments] = await Promise.all([
-      getPost(params.id),
-      getPostComments(params.id),
+      getPost(id),
+      getPostComments(id),
     ])
 
     return (

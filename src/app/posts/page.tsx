@@ -10,8 +10,14 @@ interface PostsPageProps {
   searchParams: { page?: string }
 }
 
-export default async function PostsPage({ searchParams }: PostsPageProps) {
-  const currentPage = searchParams.page ? Number.parseInt(searchParams.page) : 1
+export default async function PostsPage({
+  params,
+}: {
+  params: Promise<{ page: string }>
+}) {
+  const { page } = await params
+
+  const currentPage = page ? Number.parseInt(page) : 1
 
   try {
     const { posts, total } = await getPosts(currentPage, 10)
