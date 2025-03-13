@@ -53,7 +53,7 @@ Una aplicación completa para explorar datos de la API JSONPlaceholder construid
 
 1. **Clonar el repositorio**
 
-   ```bash
-   git clone https://github.com/tu-usuario/jsonplaceholder-explorer.git
-   cd jsonplaceholder-explorer
-   ```
+```bash
+git clone https://github.com/MrRedu/placeholder-quiz
+cd placeholder-quiz
+```

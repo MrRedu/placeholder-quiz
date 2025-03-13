@@ -1,8 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Input } from '@/components/ui/input'
-import type { Post } from '@/lib/api.model'
+import { useQuery } from '@tanstack/react-query'
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -11,9 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -21,10 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { useQuery } from '@tanstack/react-query'
-import { getPosts } from '@/lib/api'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getPosts } from '@/lib/api'
+import type { Post } from '@/lib/api.model'
 
 interface PostsListProps {
   initialPosts: Post[]
@@ -38,10 +39,10 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
   const router = useRouter()
   const pathname = usePathname()
 
-  const pageParam = searchParams.get('page')
-  const currentPage = pageParam ? Number.parseInt(pageParam) : 1
+  const pageParameter = searchParams.get('page')
+  const currentPage = pageParameter ? Number.parseInt(pageParameter) : 1
 
-  const userIdParam = searchParams.get('userId')
+  const userIdParameter = searchParams.get('userId')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
   const postsPerPage = 10
@@ -53,7 +54,7 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
       currentPage === 1
         ? { posts: initialPosts, total: totalPosts }
         : undefined,
-    staleTime: 60000, // 1 minuto
+    staleTime: 60_000, // 1 minuto
   })
 
   const posts = data?.posts || []
@@ -64,7 +65,7 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
   // Filter and sort posts
   const filteredAndSortedPosts = [...posts]
     .filter(post => {
-      if (userIdParam && post.userId !== Number.parseInt(userIdParam)) {
+      if (userIdParameter && post.userId !== Number.parseInt(userIdParameter)) {
         return false
       }
 
@@ -91,8 +92,8 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
 
     params.set('page', page.toString())
 
-    if (userIdParam) {
-      params.set('userId', userIdParam)
+    if (userIdParameter) {
+      params.set('userId', userIdParameter)
     }
 
     router.push(`${pathname}?${params.toString()}`)
@@ -102,7 +103,7 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
     if (searchTerm || sortDirection) {
       handlePageChange(1)
     }
-  }, [searchTerm, userIdParam])
+  }, [searchTerm, userIdParameter])
 
   return (
     <div className="space-y-6">
@@ -113,7 +114,7 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
             type="text"
             placeholder="Buscar por título..."
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={event => setSearchTerm(event.target.value)}
             className="pl-8"
           />
         </div>
@@ -133,9 +134,9 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
         </div>
       </div>
 
-      {userIdParam && (
+      {userIdParameter && (
         <div className="flex items-center justify-between rounded-lg bg-muted p-4">
-          <p>Filtrando publicaciones del usuario ID: {userIdParam}</p>
+          <p>Filtrando publicaciones del usuario ID: {userIdParameter}</p>
           <Button
             variant="outline"
             onClick={() => {
@@ -218,88 +219,92 @@ export function PostsList({ initialPosts, totalPosts }: PostsListProps) {
             </Button>
 
             <div className="flex items-center gap-1">
-              {Array.from({ length: Math.min(5, totalPages) }).map((_, i) => {
-                let pageNumber: number
+              {Array.from({ length: Math.min(5, totalPages) }).map(
+                (_, index) => {
+                  let pageNumber: number
 
-                // Lógica para mostrar las páginas correctas alrededor de la página actual
-                if (totalPages <= 5) {
-                  pageNumber = i + 1
-                } else if (currentPage <= 3) {
-                  pageNumber = i + 1
-                  if (i === 4) {
-                    return (
-                      <div key="ellipsis1" className="px-3 py-2">
-                        ...
-                      </div>
-                    )
+                  // Lógica para mostrar las páginas correctas alrededor de la página actual
+                  if (totalPages <= 5) {
+                    pageNumber = index + 1
+                  } else if (currentPage <= 3) {
+                    pageNumber = index + 1
+                    if (index === 4) {
+                      return (
+                        <div key="ellipsis1" className="px-3 py-2">
+                          ...
+                        </div>
+                      )
+                    }
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNumber = totalPages - 4 + index
+                    if (index === 0) {
+                      return (
+                        <div key="ellipsis2" className="px-3 py-2">
+                          ...
+                        </div>
+                      )
+                    }
+                  } else {
+                    if (index === 0) {
+                      return (
+                        <Button
+                          key="first"
+                          variant={1 === currentPage ? 'default' : 'outline'}
+                          onClick={() => handlePageChange(1)}
+                          className="h-9 w-9 p-0"
+                          disabled={isLoading || isFetching}
+                        >
+                          1
+                        </Button>
+                      )
+                    }
+                    if (index === 1) {
+                      return (
+                        <div key="ellipsis3" className="px-3 py-2">
+                          ...
+                        </div>
+                      )
+                    }
+                    if (index === 3) {
+                      return (
+                        <div key="ellipsis4" className="px-3 py-2">
+                          ...
+                        </div>
+                      )
+                    }
+                    if (index === 4) {
+                      return (
+                        <Button
+                          key="last"
+                          variant={
+                            totalPages === currentPage ? 'default' : 'outline'
+                          }
+                          onClick={() => handlePageChange(totalPages)}
+                          className="h-9 w-9 p-0"
+                          disabled={isLoading || isFetching}
+                        >
+                          {totalPages}
+                        </Button>
+                      )
+                    }
+                    pageNumber = currentPage + index - 2
                   }
-                } else if (currentPage >= totalPages - 2) {
-                  pageNumber = totalPages - 4 + i
-                  if (i === 0) {
-                    return (
-                      <div key="ellipsis2" className="px-3 py-2">
-                        ...
-                      </div>
-                    )
-                  }
-                } else {
-                  if (i === 0) {
-                    return (
-                      <Button
-                        key="first"
-                        variant={1 === currentPage ? 'default' : 'outline'}
-                        onClick={() => handlePageChange(1)}
-                        className="h-9 w-9 p-0"
-                        disabled={isLoading || isFetching}
-                      >
-                        1
-                      </Button>
-                    )
-                  }
-                  if (i === 1) {
-                    return (
-                      <div key="ellipsis3" className="px-3 py-2">
-                        ...
-                      </div>
-                    )
-                  }
-                  if (i === 3) {
-                    return (
-                      <div key="ellipsis4" className="px-3 py-2">
-                        ...
-                      </div>
-                    )
-                  }
-                  if (i === 4) {
-                    return (
-                      <Button
-                        key="last"
-                        variant={
-                          totalPages === currentPage ? 'default' : 'outline'
-                        }
-                        onClick={() => handlePageChange(totalPages)}
-                        className="h-9 w-9 p-0"
-                        disabled={isLoading || isFetching}
-                      >
-                        {totalPages}
-                      </Button>
-                    )
-                  }
-                  pageNumber = currentPage + i - 2
+
+                  return (
+                    <Button
+                      key={pageNumber}
+                      variant={
+                        pageNumber === currentPage ? 'default' : 'outline'
+                      }
+                      onClick={() => handlePageChange(pageNumber)}
+                      className="h-9 w-9 p-0"
+                      disabled={isLoading || isFetching}
+                    >
+                      {pageNumber}
+                    </Button>
+                  )
                 }
-
-                return (
-                  <Button
-                    key={pageNumber}
-                    variant={pageNumber === currentPage ? 'default' : 'outline'}
-                    onClick={() => handlePageChange(pageNumber)}
-                    className="h-9 w-9 p-0"
-                    disabled={isLoading || isFetching}
-                  >
-                    {pageNumber}
-                  </Button>
-                )
-              })}
+              )}
             </div>
 
             <Button

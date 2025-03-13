@@ -1,8 +1,10 @@
-import { getPosts } from '@/lib/api'
-import { PostsList } from './posts-list'
 import { Suspense } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
+
 import { Card } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { getPosts } from '@/lib/api'
+
+import { PostsList } from './posts-list'
 
 interface PostsPageProps {
   searchParams: { page?: string }

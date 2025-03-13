@@ -1,4 +1,4 @@
-import type { User, Post, Comment } from './api.model'
+import type { Comment, Post, User } from './api.model'
 
 const API_URL = 'https://jsonplaceholder.typicode.com'
 
