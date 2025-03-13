@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JSONPlaceholder Explorer
 
-## Getting Started
+Una aplicación completa para explorar datos de la API JSONPlaceholder construida con Next.js, TypeScript, shadcn/ui y TanStack Query.
 
-First, run the development server:
+## 📋 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Página de usuarios**:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  - Listado de usuarios con filtrado por nombre/username
+  - Vista detallada de cada usuario con información completa
+  - Navegación a las publicaciones de cada usuario
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Página de publicaciones**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  - Listado de posts con ordenación por título (A-Z, Z-A)
+  - Filtrado por título mediante búsqueda en tiempo real
+  - Paginación completa para navegar entre conjuntos de publicaciones
+  - Filtrado por usuario específico
 
-## Learn More
+- **Detalle de publicación**:
 
-To learn more about Next.js, take a look at the following resources:
+  - Vista detallada de publicaciones con contenido completo
+  - Listado de comentarios asociados
+  - Formulario para añadir nuevos comentarios (simulado)
+  - Navegación al perfil del autor
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Características técnicas**:
+  - Server Components para carga inicial de datos
+  - Client Components para interactividad
+  - Gestión de estado con TanStack Query
+  - Validación de formularios con React Hook Form + Zod
+  - Tema claro/oscuro con persistencia
+  - Diseño responsive para todos los dispositivos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Tecnologías utilizadas
 
-## Deploy on Vercel
+- **Next.js 15**: Framework de React con soporte para Server Components y App Router
+- **TypeScript**: Para tipado estático y mejor desarrollo
+- **shadcn/ui**: Sistema de componentes para una interfaz elegante y accesible
+- **TanStack Query**: Para gestión eficiente de estado del servidor y caché
+- **React Hook Form + Zod**: Para validación de formularios
+- **Tailwind CSS**: Para estilos y diseño responsive
+- **next-themes**: Para gestión de temas claro/oscuro
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💻 Instalación y ejecución
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Requisitos previos
+
+- Node.js 18.17 o superior
+- npm, yarn o pnpm
+
+### Pasos para ejecutar el proyecto
+
+1. **Clonar el repositorio**
+
+   ```bash
+   git clone https://github.com/tu-usuario/jsonplaceholder-explorer.git
+   cd jsonplaceholder-explorer
+   ```
